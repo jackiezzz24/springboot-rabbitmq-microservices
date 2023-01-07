@@ -13,6 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class OrderController {
+
     private OrderProducer orderProducer;
 
     public OrderController(OrderProducer orderProducer) {
@@ -21,6 +22,7 @@ public class OrderController {
 
     @PostMapping("/orders")
     public String placeOrder(@RequestBody Order order){
+
         order.setOrderId(UUID.randomUUID().toString());
 
         OrderEvent event = new OrderEvent();
@@ -30,6 +32,6 @@ public class OrderController {
 
         orderProducer.sendMessage(event);
 
-        return "Order send to the RabbitMQ...";
+        return "Order sent to the RabbitMQ ..";
     }
 }
